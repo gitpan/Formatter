@@ -1,4 +1,11 @@
 Revision history for Perl Formatter API specification
 
-2005-01-25
-	First public draft.
+0.93 2005-01-28
+	- The links method must return arrayrefs instead of arrays.
+	- The link title should be stripped of any markup.
+	- Specify that all strings should be 5.6 character strings.
+	- document should be able to set charset.
+	- A bit of proofreading.
+
+0.92 2005-01-25
+	- First public draft.

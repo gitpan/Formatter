@@ -4,7 +4,7 @@ Formatter - The Formatter API specification
 
 =head1 VERSION
 
-0.92
+0.93
 
 =head1 SYNOPSIS
 
@@ -19,13 +19,13 @@ convert from one format to another. This is a common problem across
 many applications, and so, a simple API for all applications to use is
 desireable.
 
-Formatters generally operate on strings. Formatters can convert any
-string from any format to any other format. For example, you have a
-plain text string, possibly with a bit of syntax, and you want to
-convert it to HTML. You will simply use the appropriate Formatter
-module, and call the C<format> constructor method on it, with the text
-string as parameter. You may then call either the C<document> or
-C<fragment> method to get HTML returned.
+Formatters operate on strings. Formatters can convert any string from
+any format to any other format. For example, you have a plain text
+string, possibly with a bit of syntax, and you want to convert it to
+HTML. You will simply use the appropriate Formatter module, and call
+the C<format> constructor method on it, with the text string as
+parameter. You may then call either the C<document> or C<fragment>
+method to get HTML returned.
 
 
 
@@ -39,6 +39,7 @@ module L<Formatter::HTML::Textile> will convert from the Textile
 syntax to HTML.
 
 
+
 =head2 Methods
 
 =over
@@ -50,13 +51,21 @@ argument it must take a string with the text that one wants converted.
 
 This method must return the object as a C<bless>ed reference. 
 
-=item C<document>
+=item C<document([$charset])>
 
 The C<document> method may be called on the object after it has been
-initialized with the C<format> method. It must return a full
-document. In the case where an underlying helper module has no concept
-of full document, the method must nevertheless make a best effort to
-return something that can be regarded a standalone document.
+initialized with the C<format> method. It takes an I<optional>
+parameter that specifies the character set of the document. The
+C<document> method must include the charset declaration as appropriate
+for the output format. For HTML this is a C<meta> element, as
+specified in section 5.2.2 of the HTML4 specification
+L<http://www.w3.org/TR/REC-html40/charset.html#spec-char-encoding>. For
+XML, it is in the Prolog.
+
+It must return a full document. In the case where an underlying helper
+module has no concept of full document, the method must nevertheless
+make a best effort to return something that can be regarded a
+standalone document.
 
 =item C<fragment>
 
@@ -70,10 +79,11 @@ effort to strip down to a minimal fragment.
 =item C<links>
 
 This method should return all links found the input plain text string
-as an array where each element is a hash, with keys C<url> and
+as an arrayref where each element is a hash, with keys C<url> and
 C<title>, the former containing the URL, the latter the text of the
 link. If none can be found, an empty list should be returned. If no
-title can be found, the title key should have an empty string.
+title can be found, the title key should have an empty string. The
+title must contain only character data, no markup.
 
 
 =item C<title>
@@ -83,6 +93,11 @@ none can be found.
 
 =back
 
+=head2 Return Perl character strings
+
+The methods that return string must make sure those strings are
+proper character-oriented strings, not byte sequences as they were
+prior to Perl 5.6. 
 
 =head2 Inheritance from other modules
 
@@ -106,8 +121,8 @@ In the case where it really doesn't make sense to return either a
 fragment or document, the Formatter may produce a warning, but must
 nevertheless return a best effort fragment or document.
 
-For HTML, a full document is understood to be a complete
-valid, HTML document. The largest possible HTML fragment consists of
+For HTML, a full document is understood to be a complete and
+valid HTML document. The largest possible HTML fragment consists of
 the child elements of the C<body> element, excluding C<body> itself.
 
 For XML, any well-formed XML document can be a full document, and any
@@ -133,8 +148,8 @@ Formatter by the author of the specification.
 
 Copyright (C) 2005 by Kjetil Kjernsmo
 
-This specification can be redistributed it and/or modified it under
-the same terms as Perl itself. The author asks that only modules
-conformant with the specification uses the Formatter:: namespace.
+This specification can be redistributed and/or modified under the same
+terms as Perl itself. The author asks that only modules conformant
+with the specification uses the Formatter:: namespace.
 
 =cut
