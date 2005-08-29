@@ -7,3 +7,5 @@
 tar.gz$
 .bak$
 .tmp$
+^.svn/
+/.svn/

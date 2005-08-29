@@ -4,7 +4,7 @@ Formatter - The Formatter API specification
 
 =head1 VERSION
 
-0.93
+0.95
 
 =head1 SYNOPSIS
 
@@ -44,10 +44,14 @@ syntax to HTML.
 
 =over
 
-=item C<format($string)>
+=item C<format($string [, further parameters])>
 
 This is a constructor method and shall initialize the formatter. As
-argument it must take a string with the text that one wants converted.
+argument it must take a string with the text that one wants
+converted. You may pass additional parameters to the constructor, but
+the Formatter may not rely on it being present. It must not issue a
+warning or croak if the parameters are not present and must use a
+sensible default for any missing parameters.
 
 This method must return the object as a C<bless>ed reference. 
 
@@ -60,7 +64,7 @@ C<document> method must include the charset declaration as appropriate
 for the output format. For HTML this is a C<meta> element, as
 specified in section 5.2.2 of the HTML4 specification
 L<http://www.w3.org/TR/REC-html40/charset.html#spec-char-encoding>. For
-XML, it is in the Prolog.
+XML, it can be set with the C<encoding> parameter in the Prolog.
 
 It must return a full document. In the case where an underlying helper
 module has no concept of full document, the method must nevertheless
@@ -132,6 +136,13 @@ contain a Prolog or Document Type Declaration.
 =head1 AUTHOR
 
 Kjetil Kjernsmo, E<lt>kjetilk@cpan.orgE<gt>
+
+=head1 SUBVERSION REPOSITORY
+
+This specification is currently maintained in a Subversion
+repository. The trunk can be checked out anonymously using e.g.:
+
+  svn checkout http://svn.kjernsmo.net/Formatter/trunk Formatter
 
 =head1 ACKNOWLEDGEMENTS
 

@@ -1,5 +1,10 @@
 Revision history for Perl Formatter API specification
 
+0.95 2005-08-29
+        - Allow additional parameters to the constructor with some
+	  requirements.  
+	- Mention SVN repository
+	
 0.93 2005-01-28
 	- The links method must return arrayrefs instead of arrays.
 	- The link title should be stripped of any markup.

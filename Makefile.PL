@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
 	      NAME         => 'Formatter',
-	      VERSION      => 0.93, 
+	      VERSION      => 0.95, 
 	      ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
 	       (ABSTRACT_FROM  => 'Formatter.pod', # retrieve abstract from module
 		AUTHOR         => 'Kjetil Kjernsmo <kjetilk@cpan.org>') : ()),
