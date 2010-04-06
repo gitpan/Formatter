@@ -1,5 +1,9 @@
 Revision history for Perl Formatter API specification
 
+1.0 2010-04-06
+	- It does what it was intended to and has seen little development,
+	so lets call it 1.0.
+
 0.95 2005-08-29
         - Allow additional parameters to the constructor with some
 	  requirements.  

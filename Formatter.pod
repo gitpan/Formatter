@@ -4,7 +4,7 @@ Formatter - The Formatter API specification
 
 =head1 VERSION
 
-0.95
+1.0
 
 =head1 SYNOPSIS
 
